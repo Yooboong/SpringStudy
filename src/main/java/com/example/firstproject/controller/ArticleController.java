@@ -37,7 +37,7 @@ public class ArticleController {
         Article saved = articleRepository.save(article);
         log.info(saved.toString()); //로깅 코드 추가
 
-        return "";
+        return "redirect:/articles/" + saved.getId(); //리다이렉트 (return "redirect:URL_주소";)
     }
 
     @GetMapping("/articles/{id}") //중괄호{} 안의 값은 변수로 사용한다는 뜻

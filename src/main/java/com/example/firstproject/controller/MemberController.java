@@ -37,7 +37,7 @@ public class MemberController {
     }
 
     @GetMapping("/members/{id}")
-    public String show(@PathVariable Long id, Model model) {
+    public String show(@PathVariable("id") Long id, Model model) {
         Member member = memberRepository.findById(id).orElse(null);
 
         model.addAttribute("member", member);

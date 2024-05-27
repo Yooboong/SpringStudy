@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -12,6 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor //기본 생성자 추가 어노테이션 (객체 생성시 내부적으로 기본 생성자로 생성하고 setter로 필드 값을 설정한다고함, 따라서 반드시 명시해야됨)
 @ToString //toString() 메소드를 자동으로 생성해주는 어노테이션(lombok사용시)
 @Entity //엔티티 선언
+@Getter //getter 추가
 public class Article {
 
     @Id //엔티티의 대표값 지정
