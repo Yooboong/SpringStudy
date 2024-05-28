@@ -113,7 +113,7 @@ public class ArticleController {
         //대상 엔티티 삭제하기
         if (target != null) {
             articleRepository.delete(target);
-            rttr.addFlashAttribute("msg", "삭제됐습니다!");
+            rttr.addFlashAttribute("msg", "삭제됐습니다!"); //리다이렉트 시점에 한번만 사용할 데이터를 등록
         }
 
         //결과 페이지로 리다이렉트하기
