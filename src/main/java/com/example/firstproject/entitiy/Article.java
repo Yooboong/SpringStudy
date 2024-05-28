@@ -1,9 +1,6 @@
 package com.example.firstproject.entitiy;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,8 +13,20 @@ import lombok.ToString;
 @Getter //getter 추가
 public class Article {
 
+/*  기본키를 자동으로 생성하는 방법 4가지
+    기본키를 자동으로 생성할 때에는 @Id와 @GeneratedValue 어노테이션이 함께 사용되어야 한다.
+
+    1. IDENTITY - @GeneratedValue(strategy = GenerationType.IDENTITY)
+       기본키 생성을 데이터베이스에게 위임하는 방식으로 id값을 따로 할당하지 않아도
+       데이터베이스가 자동으로 AUTO_INCREMENT를 하여 기본키를 생성해준다.
+
+    2. SEQUENCE - @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    3. TABLE - @GeneratedValue(strategy = GenerationType.TABLE)
+    4. AUTO - @GeneratedValue(strategy = GenerationType.AUTO)
+*/
+
     @Id //엔티티의 대표값 지정
-    @GeneratedValue //자동 생성 기능 추가(숫자가 자동으로 매겨짐)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //DB가 id 자동 생성
     private Long id;
 
     @Column //title 필드 선언, DB테이블의 title열과 연결됨
