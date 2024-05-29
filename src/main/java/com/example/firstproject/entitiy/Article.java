@@ -35,4 +35,12 @@ public class Article {
     @Column //content 필드 선언, DB테이블의 content열과 연결됨
     private String content;
 
+    public void patch(Article article) { //article(수정 엔티티)
+        if (article.title != null) {
+            this.title = article.title;
+        }
+        if (article.content != null) {
+            this.content = article.content;
+        }
+    }
 }
