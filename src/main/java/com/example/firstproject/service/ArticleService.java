@@ -6,7 +6,9 @@ import com.example.firstproject.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j //로그를 사용하기 위한 어노테이션
@@ -66,6 +68,49 @@ public class ArticleService {
         //대상 삭제
         articleRepository.delete(target);
         return target; //DB에서 삭제한 대상을 컨트롤러에 반환
+    }
+
+    /*
+        트랜잭션은 보통 서비스에서 관리.
+        서비스의 메소드에 @Transactional을 붙이면 해당 메소드는 하나의 트랜잭션으로 묶임
+        메소드가 중간에 실패하더라도 롤백을 통해 이전 상태로 돌아갈 수 있음
+        Transactional은 org.springframework.transaction.annotation의 것을 import
+    */
+    @Transactional
+    public List<Article> createArticles(List<ArticleForm> dtos) {
+        //1. dto 묶음을 엔티티 묶음으로 반환하기
+        /* 스트림(stream)문법 사용시
+        List<Article> articleList = dtos.stream() //dto를 스트림화
+                .map(dto -> dto.toEntity()) //map()으로 dto가 하나하나 올 때마다 dto.toEntity()를 수행하여 매핑
+                .collect(Collectors.toList()); //매핑한 것을 리스트로 묶음
+        */
+
+        List<Article> articleList = new ArrayList<>();
+        for (int i = 0; i < dtos.size(); i++) {
+            ArticleForm dto = dtos.get(i);
+            Article entity = dto.toEntity();
+            articleList.add(entity);
+        }
+
+        //2. 엔티티 묶음을 DB에 저장하기
+        /* 스트림(stream)문법 사용시
+        articleList.stream()
+                .forEach(article -> articleRepository.save(article));
+        */
+
+        for (int i = 0; i < articleList.size(); i++) {
+            Article article = articleList.get(i);
+            articleRepository.save(article);
+        }
+
+        //3. 강제 예외 발생시키기
+        articleRepository.findById(-1L) //findById()로 id가 -1인 데이터를 찾아 강제로 예외 발생시키기(-1인 id는 없음)
+                .orElseThrow(() -> new IllegalArgumentException("결제 실패!"));
+        //orElseThrow() 메소드는 값이 존재하면 그 값을 반환하고, 값이 존재하지 않으면 전달값으로 보낸 예외를 발생시킴.
+        //IllegalArgumentException은 전달값이 없거나 유효하지 않은 경우를 뜻함
+
+        //4. 결과 값 반환하기
+        return articleList;
     }
 
 }
