@@ -36,7 +36,7 @@ public class CoffeeApiController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
         Coffee created = coffeeRepository.save(coffee);
-        return ResponseEntity.status(HttpStatus.OK).body(created);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PatchMapping("/api/coffees/{id}")
