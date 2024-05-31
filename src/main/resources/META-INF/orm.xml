@@ -5,6 +5,18 @@
                  http://jakarta.ee/xml/ns/persistence/orm/orm_3_0.xsd"
                  version="3.0">
 
+<!--
+     <named-native-query
+        name="쿼리를 수행하는 대상 엔티티.메소드 이름"
+        result-class="쿼리 수행 결과 반환하는 타입의 전체 패키지 경로">
+        <query>
+            <![CDATA[
+                쿼리
+            ]]>
+        </query>
+    </named-native-query>
+-->
+
     <named-native-query
         name="Comment.findByNickName"
         result-class="com.example.firstproject.entitiy.Comment">

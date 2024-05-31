@@ -14,6 +14,7 @@ import java.util.List;
 */
 public interface CommentRepository extends JpaRepository<Comment, Long> { //JpaRepository<대상 엔티티, 대표키 값의 타입>
     //특정 게시글의 모든 댓글 조회
+    //직접 작성한 쿼리를 메소드로 실행하기위해 @Query 어노테이션을 사용
     @Query(value = "SELECT *" +
             "FROM COMMENT" +
             "WHERE ARTICLE_ID = :articleId",
@@ -21,5 +22,10 @@ public interface CommentRepository extends JpaRepository<Comment, Long> { //JpaR
     List<Comment> findByArticleId(Long articleId);
 
     //특정 닉네임의 모든 댓글 조회
+    /*
+        직접 작성한 쿼리를 메소드로 실행하기위한 두번째 방법
+        "src/main/resource"에 "META-INF" 디렉토리를 만들고
+        그 안에 orm.xml 파일을 작성하는 방법
+    */
     List<Comment> findByNickname(String nickname);
 }
