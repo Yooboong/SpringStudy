@@ -73,7 +73,9 @@ class ArticleServiceTest {
     @Transactional //테스트가 끝나면 롤백
     /*
     데이터를 조회(Read)하는 경우를 제외한 생성(Create), 수정(Update), 삭제(Delete)하는 테스트를 할 때는
-    반드시 해당 테스트를 트랜잭션으로 묶어 테스트가 종료된 후 원래대로 돌아갈 수 있게    롤백 처리를 해야한다.    */    void createSuccess() { //title과 content만 있는 dto를 입력했을 때
+    반드시 해당 테스트를 트랜잭션으로 묶어 테스트가 종료된 후 원래대로 돌아갈 수 있게    롤백 처리를 해야한다.
+    */
+    void createSuccess() { //title과 content만 있는 dto를 입력했을 때
         //1. 예상 데이터
         String title = "라라라라"; //title 값 임의 배정
         String content = "4444"; //content 값 임의 배정
