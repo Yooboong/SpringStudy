@@ -15,8 +15,8 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, Long> { //JpaRepository<대상 엔티티, 대표키 값의 타입>
     //특정 게시글의 모든 댓글 조회
     //직접 작성한 쿼리를 메소드로 실행하기위해 @Query 어노테이션을 사용
-    @Query(value = "SELECT *" +
-            "FROM COMMENT" +
+    @Query(value = "SELECT * " +
+            "FROM COMMENT " +
             "WHERE ARTICLE_ID = :articleId",
             nativeQuery = true) //value 속성에 실행하려는 쿼리 작성, 매개변수 앞에는 꼭 콜론(:)을 작성
     List<Comment> findByArticleId(Long articleId);
