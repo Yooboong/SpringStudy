@@ -1,8 +1,10 @@
 package com.example.firstproject.controller;
 
 import com.example.firstproject.dto.ArticleForm;
+import com.example.firstproject.dto.CommentDto;
 import com.example.firstproject.entitiy.Article;
 import com.example.firstproject.repository.ArticleRepository;
+import com.example.firstproject.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j //로깅 기능을 위한 어노테이션 추가(lombok 사용시) 로그를 찍을때는 log.info()문 사용
 @Controller
@@ -20,6 +23,9 @@ public class ArticleController {
 
     @Autowired //스프링 부트가 미리 생성해 놓은 레포지토리 주입(DI), ArticleRepository는 인터페이스지만 스프링의 IOC 컨테이너에서 자동으로 객체를 만들어 넣어줌
     private ArticleRepository articleRepository;
+
+    @Autowired //서비스 객체 주입
+    private CommentService commentService;
 
     @GetMapping("/articles/new")
     public String newArticleForm() {
@@ -51,8 +57,11 @@ public class ArticleController {
         Article articleEntity = articleRepository.findById(id).orElse(null);
         //id 값으로 데이터를 찾을 때 해당 id 값이 없으면 null을 반환하라는 뜻
 
+        List<CommentDto> commentDtos = commentService.comments(id);
+
         //모델에 데이터 등록(MVC 패턴에 따라 데이터를 뷰 페이지에서 사용하기 위함)
         model.addAttribute("article", articleEntity);
+        model.addAttribute("commentDtos", commentDtos); //댓글 목록 모델에 등록
 
         //뷰 페이지 반환
         return "articles/show";
