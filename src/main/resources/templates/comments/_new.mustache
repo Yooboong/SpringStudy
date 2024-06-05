@@ -14,8 +14,8 @@
             {{#article}}
                 <input type="hidden" id="new-comment-article-id" value="{{id}}">
             {{/article}}
-            <button type="submit" class="btn btn-primary"
-                    id="comment-create-btn">Submit
+            <button type="button" class="btn btn-primary"
+                    id="comment-create-btn">댓글 작성
             </button>
         </form>
     </div>
@@ -26,17 +26,14 @@
         /*
             //해당 id 값을 가진 요소를 찾아 변수에 저장하기
             자료형 변수명 = document.querySelector("#id_값");
-
             //이벤트가 감지되면 이벤트 처리함수 진행
             요소명.addEventListener("이벤트_타입", 이벤트_처리_함수)
-
             //객체 리터럴 : 자바스크립트에서 객체를 만드는 방식 중 하나
             var object = {
                 key1: value1,
                 key2: value2,
                 ...
             }
-
             //자바스크립트로 REST API 호출하고 응답 처리하기
             fetch('API_주소', {
                 method : 'POST', //요청 메소드(GET, POST, PATCH, DELETE)
@@ -48,10 +45,8 @@
                 응답_처리문;
             });
         */
-
         //댓글 생성 버튼 변수화
         const commentCreateBtn = document.querySelector("#comment-create-btn");
-
         //댓글 클릭 이벤트 감지
         commentCreateBtn.addEventListener("click", function() {
             //새 댓글 객체 생성
@@ -63,10 +58,8 @@
                 //부모 게시글의 id
                 articleId : document.querySelector("#new-comment-article-id").value
             };
-
             //댓글 객체 출력
             console.log(comment);
-
             //fetch() - 비동기 통신을 위한 API
             const url = "/api/articles/" + comment.articleId + "/comments";
             fetch(url, {
@@ -78,11 +71,10 @@
             }).then(response => {
                 //HTTP 응답 코드에 따른 메시지 출력
                 const msg = (response.ok) ? "댓글이 등록됐습니다." : "댓글 등록 실패..!"; //응답 처리
-                alter(msg);
+                alert(msg);
                 //현재 페이지 새로 고침
                 window.location.reload(); //새로 고침
             });
         });
-
     }
 </script>
